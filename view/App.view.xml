@@ -1,0 +1,71 @@
+<mvc:View controllerName="barcodeScanner.controller.App" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" displayBlock="true" xmlns="sap.m" xmlns:tnt="sap.tnt">
+	<tnt:ToolHeader>
+		<Image src="img/IBMLogo.gif" width="100px" height="90px" press="https://www.ibm.com/in-en"></Image>
+		<Text text="{i18n>title}" wrapping="false"></Text>
+		<ToolbarSpacer/>
+		<Button icon="sap-icon://sys-help-2" text="Help" type="Transparent" press="onHelpPress"></Button>
+	</tnt:ToolHeader>
+	<Shell id="shell">
+		<App id="app">
+			<Page showHeader="false">
+				<IconTabBar id="idIconTabBarStretchContent" stretchContentHeight="true" backgroundDesign="Transparent" applyContentPadding="false"
+					expanded="{device>/isNoPhone}" class="sapUiResponsiveContentPadding">
+					<items>
+						<IconTabFilter text="QR Reader">
+							<Text class="sapUiLargeMarginBegin sapUiSmallMarginTop"
+								text="Quick Scan Utility - This section provides scaning functionality for all types of QR codes. Payments, url shortners, MRP tags,Product ingredent information. All categories info can be quickly rendered using QR codes"></Text>
+							<f:SimpleForm layout="ResponsiveGridLayout" editable="true" labelSpanL="3" labelSpanM="3" emptySpanL="3" emptySpanM="3" columnsL="2"
+								columnsM="2">
+								<Label text="Type"></Label>
+								<Button id="qrid" icon="sap-icon://bar-code" width="80%" type="Accept" text="Scan QRCode" tooltip="Scan barcode"
+									visible="{device>/barcodeScanEnabled}" press="scanCode">
+									<layoutData>
+										<l:GridData span="L2 M2"/>
+									</layoutData>
+								</Button>
+								<Label text="Scan Result"></Label>
+								<Input id="QrscannedValue" width="100%"
+									placeholder="{= ${device>/barcodeScanEnabled} ? 'Use scan button to enter barcode' : 'Enter barcode manually' }"
+									editable="{= !${device>/barcodeScanEnabled} }"/>
+								<Button text="Reset" icon="sap-icon://reset" type="Emphasized" press="onReset" width="35%"></Button>
+							</f:SimpleForm>
+							<Panel expandable="true" headerText="Recent Activity" width="auto" class="sapUiResponsiveMargin">
+								<content>
+									<Text id="log" text=""></Text>
+								</content>
+							</Panel>
+						</IconTabFilter>
+						<IconTabFilter text="BarCode Reader">
+							<Text
+								text="Quick Scan -Barcode Reader allows users to scan different bar code formats. Currently it supports Code 128 format and can be extended to EAN etc.  Primary uses of barcodes exists in Food passes,Warehouse tagging,Pricing tags,Product Expiry and Product Batch information."/>
+							<f:SimpleForm layout="ResponsiveGridLayout" editable="true" labelSpanL="3" labelSpanM="3" emptySpanL="3" emptySpanM="3" columnsL="2"
+								columnsM="2">
+								<Label text="Type"></Label>
+								<Button id="barcodeid" icon="sap-icon://bar-code" width="80%" type="Accept" text="Scan Barcode" tooltip="Scan barcode"
+									visible="{device>/barcodeScanEnabled}" press="onScanForValue">
+									<layoutData>
+										<l:GridData span="L2 M2"/>
+									</layoutData>
+								</Button>
+								<Label text="Scan Result"></Label>
+								<Input id="barscannedValue" width="100%"
+									placeholder="{= ${device>/barcodeScanEnabled} ? 'Use scan button to enter barcode' : 'Enter barcode manually' }"
+									editable="{= !${device>/barcodeScanEnabled} }"/>
+								<Button text="Reset" icon="sap-icon://reset" type="Emphasized" press="onBarCodeReset" width="35%"></Button>
+							</f:SimpleForm>
+						</IconTabFilter>
+						<IconTabFilter text="API">
+							<VBox>
+								<Text text="Scanner functionality related API details can refered below. Provided API's are integrated into UI5 Application for end user consumption. Reader functionality can be scaled up over time with more API integration "/>
+								<HBox class="sapUiSmallMarginTop"><Text class="sapUiTinyMarginEnd" text="SAP Native Barcode Handling: "></Text> <Link text="https://ui5.sap.com/#/api/sap.ndc"></Link></HBox>
+							<HBox> <Text class="sapUiTinyMarginEnd" text="Open Source Generic Barcode Handling:"></Text><Link text="https://www.npmjs.com/package/quagga-scanner"></Link></HBox>	
+						<HBox> <Text class="sapUiTinyMarginEnd" text="QR Code Scanner functionality Handling"></Text> <Link text="https://github.com/LazarSoft/jsqrcode"></Link></HBox>
+							</VBox>
+						</IconTabFilter>
+					</items>
+				</IconTabBar>
+			</Page>
+		</App>
+	</Shell>
+</mvc:View>
